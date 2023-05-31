@@ -47,3 +47,24 @@ class MemberShipPlan(models.Model):
 
     def __str__(self) :
         return self.plan
+    
+
+class Gallery(models.Model):
+    title = models.CharField(max_length=255)
+    img = models.ImageField(upload_to='gallery')
+    timeStamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) :
+        return self.title
+
+
+class Attendance(models.Model):
+    phoneNumber = models.CharField(max_length=15)
+    selectDate = models.DateTimeField(auto_now_add=True)
+    login = models.CharField(max_length=255)
+    logout = models.CharField(max_length=255)
+    selectWorkout = models.CharField(max_length=255)
+    trainedBy = models.CharField(max_length=255)
+
+    def __str__(self) :
+        return self.pk

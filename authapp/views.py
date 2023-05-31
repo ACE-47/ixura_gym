@@ -2,11 +2,43 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from .models import Contact ,MemberShipPlan,Enrollment,Trainer
+from .models import Contact ,MemberShipPlan,Enrollment,Trainer,Gallery,Attendance
 # Create your views here.
 
 def home(request):
     return render(request,'index.html')
+
+def attendance(request):
+    if not request.user.is_authenticated :
+        messages.warning(request,'Please Login and try again')
+        redirect('login')
+    trainers = Trainer.objects.all()
+    # queryset = Attendance.objects.all()
+    return render(request,'attendance.html',{
+        'trainers': trainers,
+    })
+
+
+def gallery(request):
+    gallery = Gallery.objects.all()
+
+    return render(request,'gallery.html',{
+        'gallery' : gallery,
+    })
+
+
+def profile(request):
+    if not request.user.is_authenticated :
+        messages.warning(request,'Please Login and try again')
+        redirect('login')
+    
+    print(request.user)
+
+    user_phone = Enrollment.objects.filter(phoneNumber = request.user)
+    print(user_phone)
+    return render(request,'profile.html',{
+        'profile':user_phone
+    })
 
 
 def signup(request):

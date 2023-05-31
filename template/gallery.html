@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+Gallery
+{% endblock title %}
+{% block body %}
+
+<div class="container mt-2">
+  
+  <Center><h1>Gallery</h1></Center>
+  
+  <div class="row">
+
+    {% for image in gallery  %}  
+      <div class="col-md-4">
+        <div class="card">
+            <img src="{{image.img.url}}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{image.title}}</h5>
+              <p class="card-text">Uploaded On : {{image.timeStamp}} </p>
+            </div>
+        </div>
+
+      </div>
+    {% endfor %}
+    <br>
+    <br>  
+
+
+  </div>
+</div>
+
+
+
+
+
+{% endblock body %}
