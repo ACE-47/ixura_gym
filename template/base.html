@@ -54,18 +54,28 @@
           <li><a class="nav-link scrollto" href="/about">About</a></li>
           <li><a class="nav-link scrollto" href="/services">Services</a></li>
           <li><a class="nav-link scrollto " href="/gallery">Gallery</a></li>
-          <li><a class="nav-link scrollto" href="/contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'contact' %}">Contact</a></li>
           <li class="dropdown"><a href="#"><span>Memberships</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
              
-              <li><a href="#">Enroll</a></li>
+              <li><a href="{% url 'enroll' %}">Enroll</a></li>
               <li><a href="#">Workouts</a></li>
               <li><a href="#">Tracker</a></li>
               <li><a href="#">view Profile</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="/signin">Sign in</a></li>
-        </ul>
+        
+          {% if not user.is_authenticated %}
+  
+            <li><a class="nav-link scrollto" href="{% url 'signup' %}">Sign in</a></li>
+  
+          {% else %}
+  
+            <li><a class="nav-link scrollto" href="{% url 'logout' %}">Logout</a></li>
+
+          {% endif %}
+
+          </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
