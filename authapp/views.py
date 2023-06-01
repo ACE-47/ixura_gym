@@ -8,12 +8,24 @@ from .models import Contact ,MemberShipPlan,Enrollment,Trainer,Gallery,Attendanc
 def home(request):
     return render(request,'index.html')
 
+
 def attendance(request):
     if not request.user.is_authenticated :
         messages.warning(request,'Please Login and try again')
         redirect('login')
     trainers = Trainer.objects.all()
     # queryset = Attendance.objects.all()
+
+    if request.method == 'POST':
+        phoneNumber = request.POST.get('phoneNumber')
+        selectDate = request.POST.get('selectDate')
+        login = request.POST.get('logintime')
+        logout = request.POST.get('loginout')
+        selectWorkout = request.POST.get('workout')
+        trainedBy = request.POST.get('trainer')
+
+        queryset = Attendance(phoneNumber = phoneNumber,selectDate = selectDate, login = login, logout = logout, selectWorkout = selectWorkout, trainedBy = trainedBy )
+
     return render(request,'attendance.html',{
         'trainers': trainers,
     })
