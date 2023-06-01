@@ -66,5 +66,5 @@ class Attendance(models.Model):
     selectWorkout = models.CharField(max_length=255)
     trainedBy = models.CharField(max_length=255)
 
-    def __str__(self) :
-        return self.pk
+    # def __str__(self) :
+    #     return self.phoneNumber

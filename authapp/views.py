@@ -13,6 +13,7 @@ def attendance(request):
     if not request.user.is_authenticated :
         messages.warning(request,'Please Login and try again')
         redirect('login')
+
     trainers = Trainer.objects.all()
     # queryset = Attendance.objects.all()
 
@@ -25,7 +26,10 @@ def attendance(request):
         trainedBy = request.POST.get('trainer')
 
         queryset = Attendance(phoneNumber = phoneNumber,selectDate = selectDate, login = login, logout = logout, selectWorkout = selectWorkout, trainedBy = trainedBy )
-
+        queryset.save()
+        messages.warning(request,'Attendence Applied Successfully')
+        redirect('attendance')
+    
     return render(request,'attendance.html',{
         'trainers': trainers,
     })
@@ -47,9 +51,11 @@ def profile(request):
     print(request.user)
 
     user_phone = Enrollment.objects.filter(phoneNumber = request.user)
+    attendance = Attendance.objects.filter(phoneNumber = request.user)
     print(user_phone)
     return render(request,'profile.html',{
-        'profile':user_phone
+        'profile':user_phone,
+        'attendance' : attendance,
     })
 
 
